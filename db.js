@@ -1,6 +1,8 @@
 const mongoose=require('mongoose');
+require('dotenv').config();
 
-const mongo_URL='mongodb://127.0.0.1:27017'
+//var  mongo_URL=process.env.MONGODB_URL_LOCAL;
+var mongo_URL=process.env.MONGODB_URL;
 
 mongoose.connect(mongo_URL,{
     useNewUrlParser:true,

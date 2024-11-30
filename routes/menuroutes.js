@@ -48,4 +48,44 @@ Router.get('/:testetype',async(req,res)=>{
         }
 })
 
+Router.put('/:id',async(req,res)=>{
+    try{
+        const menuid=req.params.id;
+        const updatedmenu=req.body;
+        const response=await menu.findByIdAndUpdate(menuid,updatedmenu,{
+            new:true,
+            runValidators:true
+        })
+        if(!response){
+            res.status(400).json({error:'menu not found'});
+        } 
+        console.log("data updeted");
+        res.status(200).json(response);
+
+    }catch(error){
+        console.log(error);
+        res.status(404).json({error:'internal server error'});
+
+    }
+})
+
+Router.delete('/:id',async(req,res)=>{
+    try{
+    const menuid=req.params.id;
+    const response=await menu.findByIdAndDelete(menuid);
+    if(!response){
+        res.status(400).json({error:'person not found'});
+    }
+    else{
+        console.log("menu deleted");
+        res.status(200).json(response);
+    }
+    }catch(error){
+        console.log(error);
+        res.status(404).json({error:'internal server error'});
+
+    }
+
+})
+
 module.exports=Router;
